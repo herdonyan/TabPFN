@@ -62,6 +62,7 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
     if isinstance(criterion, nn.GaussianNLLLoss):
         n_out = 2
     elif isinstance(criterion, nn.CrossEntropyLoss):
+        print("Using CrossEntropyLoss", criterion, nn.CrossEntropyLoss, criterion.weight)
         n_out = criterion.weight.shape[0]
     else:
         n_out = 1
