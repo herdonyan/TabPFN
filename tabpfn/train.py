@@ -248,7 +248,7 @@ if __name__ == '__main__':
     parser.add_argument('--min_y', type=float, help='barnll can only model y in strict ranges, this is the minimum y can take.')
     parser.add_argument('--max_y', type=float, help='barnll can only model y in strict ranges, this is the maximum y can take.')
     parser.add_argument('--num_buckets', default=100, type=int)
-    #parser.add_argument('--num_features', default=None, type=int, help='Specify depending on the prior.')
+    parser.add_argument('--num_features', default=None, type=int, help='Specify depending on the prior.')
     parser.add_argument("--extra_prior_kwargs_dict", default={}, dest="extra_prior_kwargs_dict", action=StoreDictKeyPair, nargs="+", metavar="KEY=VAL", help='Specify depending on the prior.')
     parser.add_argument('--encoder', default='linear', type=str, help='Specify depending on the prior.')
     parser.add_argument('--y_encoder', default='linear', type=str, help='Specify depending on the prior. You should specify this if you do not fuse x and y.')
