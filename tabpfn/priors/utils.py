@@ -18,7 +18,7 @@ def get_batch_to_dataloader(get_batch_method_):
             set_locals_in_self(locals())
 
             # The stuff outside the or is set as class attribute before instantiation.
-            self.num_features = get_batch_kwargs.get('num_features') or self.num_features
+            # self.num_features = get_batch_kwargs.get('num_features') or self.num_features
             self.epoch_count = 0
             #print('DataLoader.__dict__', self.__dict__)
 
