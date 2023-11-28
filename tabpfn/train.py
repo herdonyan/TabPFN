@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../..') # for vscode debug, up 1 level
+
 import os
 import itertools
 import argparse
