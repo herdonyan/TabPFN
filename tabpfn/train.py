@@ -1,5 +1,6 @@
 import sys
 sys.path.append('../..') # for vscode debug, up 1 level
+print(sys.path)
 
 import os
 import itertools
