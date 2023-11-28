@@ -54,7 +54,8 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
             return single_eval_pos, bptt
     dl = priordataloader_class(num_steps=steps_per_epoch, batch_size=batch_size, eval_pos_seq_len_sampler=eval_pos_seq_len_sampler, seq_len_maximum=bptt+(bptt_extra_samples if bptt_extra_samples else 0), device=device, **extra_prior_kwargs_dict)
 
-    encoder = encoder_generator(dl.num_features, emsize)
+    # encoder = encoder_generator(dl.num_features, emsize)
+    encoder = encoder_generator(100, emsize)
     #style_def = dl.get_test_batch()[0][0] # the style in batch of the form ((style, x, y), target, single_eval_pos)
     style_def = None
     #print(f'Style definition of first 3 examples: {style_def[:3] if style_def is not None else None}')
@@ -253,7 +254,7 @@ if __name__ == '__main__':
     parser.add_argument('--min_y', type=float, help='barnll can only model y in strict ranges, this is the minimum y can take.')
     parser.add_argument('--max_y', type=float, help='barnll can only model y in strict ranges, this is the maximum y can take.')
     parser.add_argument('--num_buckets', default=100, type=int)
-    parser.add_argument('--num_features', default=None, type=int, help='Specify depending on the prior.')
+    # parser.add_argument('--num_features', default=None, type=int, help='Specify depending on the prior.')
     parser.add_argument("--extra_prior_kwargs_dict", default={}, dest="extra_prior_kwargs_dict", action=StoreDictKeyPair, nargs="+", metavar="KEY=VAL", help='Specify depending on the prior.')
     parser.add_argument('--encoder', default='linear', type=str, help='Specify depending on the prior.')
     parser.add_argument('--y_encoder', default='linear', type=str, help='Specify depending on the prior. You should specify this if you do not fuse x and y.')
