@@ -99,6 +99,7 @@ def get_batch(batch_size, seq_len, num_features, device=default_device, hyperpar
 
 DataLoader = get_batch_to_dataloader(get_batch)
 # DataLoader.num_outputs = 1
+DataLoader.num_features = 1
 
 def get_model_on_device(x,y,hyperparameters,device):
     model, likelihood = get_model(x, y, hyperparameters)
