@@ -264,7 +264,7 @@ if __name__ == '__main__':
     parser.add_argument('--encoder', default='linear', type=str, help='Specify depending on the prior.')
     parser.add_argument('--y_encoder', default='linear', type=str, help='Specify depending on the prior. You should specify this if you do not fuse x and y.')
     parser.add_argument('--pos_encoder', default='none', type=str, help='Specify depending on the prior.')
-    parser.add_argument('--bptt', default=10, type=int)
+    parser.add_argument('--bptt_extra_samples', default=10, type=int) # bptt
     parser.add_argument('--epochs', default=200, type=int)
     parser.add_argument('--warmup_epochs', default=50, type=int)
     parser.add_argument('--validation_period', default=10, type=int)
