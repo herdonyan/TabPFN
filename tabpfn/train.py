@@ -103,7 +103,7 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
 
     scaler = GradScaler() if train_mixed_precision else None
 
-    print(dl.num_outputs)
+    # print(dl.num_outputs)
     # check that everything uses up-to-date APIs
     utils.check_compatibility(dl)
 
