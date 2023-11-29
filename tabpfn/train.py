@@ -141,8 +141,10 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
 
                     forward_time = time.time() - before_forward
 
+                    print(output.shape, targets.shape)
                     if single_eval_pos is not None:
                         targets = targets[single_eval_pos:]
+                    
                     if isinstance(criterion, nn.GaussianNLLLoss):
                         assert output.shape[-1] == 2, \
                             'need to write a little bit of code to handle multiple regression targets at once'
