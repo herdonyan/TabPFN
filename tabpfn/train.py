@@ -119,7 +119,7 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
         before_get_batch = time.time()
         assert len(dl) % aggregate_k_gradients == 0, 'Please set the number of steps per epoch s.t. `aggregate_k_gradients` divides it.'
         for batch, (data, targets, single_eval_pos) in enumerate(dl):
-            print(len(data), len(targets), single_eval_pos)
+            # print(len(data), len(targets), single_eval_pos)
             if using_dist and not (batch % aggregate_k_gradients == aggregate_k_gradients - 1):
                 cm = model.no_sync()
             else:
@@ -142,7 +142,7 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
 
                     forward_time = time.time() - before_forward
 
-                    print(output.shape, targets.shape) # 20*1000*2, 10*1000
+                    # print(output.shape, targets.shape) # 20*1000*2, 10*1000
                     # print("output", output, "targets", targets)
                     if single_eval_pos is not None:
                         targets = targets[single_eval_pos:]
@@ -152,7 +152,7 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
                             'need to write a little bit of code to handle multiple regression targets at once'
 
                         mean_pred = output[..., 0]
-                        print("mean_pred", mean_pred.shape)
+                        # print("mean_pred", mean_pred.shape)
                         var_pred = output[..., 1].abs()
                         losses = criterion(mean_pred.flatten(), targets.to(device).flatten(), var=var_pred.flatten())
                     elif isinstance(criterion, (nn.MSELoss, nn.BCEWithLogitsLoss)):

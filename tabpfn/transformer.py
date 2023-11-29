@@ -105,20 +105,20 @@ class TransformerModel(nn.Module):
 
         style_src, x_src, y_src = src
         
-        print("before encoder:x,y,style", x_src.shape, y_src.shape, style_src)
+        # print("before encoder:x,y,style", x_src.shape, y_src.shape, style_src)
         x_src = self.encoder(x_src)
-        print("after encoder:x",x_src.shape)
+        # print("after encoder:x",x_src.shape)
         y_src = self.y_encoder(y_src.unsqueeze(-1) if len(y_src.shape) < len(x_src.shape) else y_src)
-        print("after encoder:y",y_src.shape)
+        # print("after encoder:y",y_src.shape)
         style_src = self.style_encoder(style_src).unsqueeze(0) if self.style_encoder else \
             torch.tensor([], device=x_src.device)
-        print("after encoder:style",style_src.shape)
+        # print("after encoder:style",style_src.shape)
         global_src = torch.tensor([], device=x_src.device) if self.global_att_embeddings is None else \
             self.global_att_embeddings.weight.unsqueeze(1).repeat(1, x_src.shape[1], 1)
-        print("after encoder:global",global_src.shape)
+        # print("after encoder:global",global_src.shape)
 
         if src_mask is not None: assert self.global_att_embeddings is None or isinstance(src_mask, tuple)
-        print("before mask:src_mask",src_mask)
+        # print("before mask:src_mask",src_mask)
         if src_mask is None:
             if self.global_att_embeddings is None:
                 full_len = len(x_src) + len(style_src)
@@ -138,9 +138,9 @@ class TransformerModel(nn.Module):
                             self.generate_global_att_query_matrix(*src_mask_args).to(x_src.device))
 
         train_x = x_src[:single_eval_pos] + y_src[:single_eval_pos]
-        print("before concat:global_src,style_src,train_x,x_src",global_src.shape,style_src.shape,train_x.shape,x_src.shape)
+        # print("before concat:global_src,style_src,train_x,x_src",global_src.shape,style_src.shape,train_x.shape,x_src.shape)
         src = torch.cat([global_src, style_src, train_x, x_src[single_eval_pos:]], 0)
-        print("after concat:src",src.shape)
+        # print("after concat:src",src.shape)
 
         if self.input_ln is not None:
             src = self.input_ln(src)
@@ -148,12 +148,12 @@ class TransformerModel(nn.Module):
         if self.pos_encoder is not None:
             src = self.pos_encoder(src)
         
-        print("before transformer_encoder:src",src.shape)
+        # print("before transformer_encoder:src",src.shape)
 
         output = self.transformer_encoder(src, src_mask)
-        print("after transformer_encoder:output",output.shape)
+        # print("after transformer_encoder:output",output.shape)
         output = self.decoder(output)
-        print("after decoder:output",output.shape)
+        # print("after decoder:output",output.shape)
         # return output[single_eval_pos+len(style_src)+(self.global_att_embeddings.num_embeddings if self.global_att_embeddings else 0):]
         return output[len(style_src)+(self.global_att_embeddings.num_embeddings if self.global_att_embeddings else 0):]
 
