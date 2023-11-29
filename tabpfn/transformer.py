@@ -105,7 +105,7 @@ class TransformerModel(nn.Module):
 
         style_src, x_src, y_src = src
         
-        print("before encoder:x,y,style", x_src.shape, y_src.shape, style_src.shape)
+        print("before encoder:x,y,style", x_src.shape, y_src.shape, style_src)
         x_src = self.encoder(x_src)
         print("after encoder:x",x_src.shape)
         y_src = self.y_encoder(y_src.unsqueeze(-1) if len(y_src.shape) < len(x_src.shape) else y_src)
