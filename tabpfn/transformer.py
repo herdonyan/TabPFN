@@ -120,7 +120,8 @@ class TransformerModel(nn.Module):
                 if self.full_attention:
                     src_mask = bool_mask_to_att_mask(torch.ones((full_len, full_len), dtype=torch.bool)).to(x_src.device)
                 elif self.efficient_eval_masking:
-                    src_mask = single_eval_pos + len(style_src)
+                    # src_mask = single_eval_pos + len(style_src)
+                    src_mask = len(style_src)
                 else:
                     src_mask = self.generate_D_q_matrix(full_len, len(x_src) - single_eval_pos).to(x_src.device)
             else:
