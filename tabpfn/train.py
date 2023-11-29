@@ -142,6 +142,7 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
                     forward_time = time.time() - before_forward
 
                     print(output.shape, targets.shape)
+                    print("output", output, "targets", targets)
                     if single_eval_pos is not None:
                         targets = targets[single_eval_pos:]
                     
