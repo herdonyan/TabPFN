@@ -128,8 +128,8 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
                 before_forward = time.time()
                 if bptt_extra_samples is None:
                     # single_eval_pos = single_eval_pos_gen() if callable(single_eval_pos_gen) else single_eval_pos_gen
-                    # single_eval_pos = None
-                    single_eval_pos = 10000
+                    single_eval_pos = None
+                    # single_eval_pos = 10000
                 else:
                     single_eval_pos = targets.shape[0] - bptt_extra_samples
 
@@ -142,8 +142,8 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
 
                     forward_time = time.time() - before_forward
 
-                    print(output.shape, targets.shape)
-                    print("output", output, "targets", targets)
+                    print(output.shape, targets.shape) # 20*1000*2, 10*1000
+                    # print("output", output, "targets", targets)
                     if single_eval_pos is not None:
                         targets = targets[single_eval_pos:]
                     
@@ -152,6 +152,7 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
                             'need to write a little bit of code to handle multiple regression targets at once'
 
                         mean_pred = output[..., 0]
+                        print("mean_pred", mean_pred.shape)
                         var_pred = output[..., 1].abs()
                         losses = criterion(mean_pred.flatten(), targets.to(device).flatten(), var=var_pred.flatten())
                     elif isinstance(criterion, (nn.MSELoss, nn.BCEWithLogitsLoss)):
