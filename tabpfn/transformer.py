@@ -125,8 +125,8 @@ class TransformerModel(nn.Module):
                     src_mask = self.generate_D_q_matrix(full_len, len(x_src) - single_eval_pos).to(x_src.device)
             else:
                 src_mask_args = (self.global_att_embeddings.num_embeddings,
-                                 len(x_src) + len(style_src),
-                                 len(x_src) + len(style_src) - single_eval_pos)
+                                len(x_src) + len(style_src),
+                                len(x_src) + len(style_src) - single_eval_pos)
                 src_mask = (self.generate_global_att_globaltokens_matrix(*src_mask_args).to(x_src.device),
                             self.generate_global_att_trainset_matrix(*src_mask_args).to(x_src.device),
                             self.generate_global_att_query_matrix(*src_mask_args).to(x_src.device))
@@ -147,7 +147,7 @@ class TransformerModel(nn.Module):
     @torch.no_grad()
     def init_from_small_model(self, small_model):
         assert isinstance(self.decoder, nn.Linear) and isinstance(self.encoder, (nn.Linear, nn.Sequential)) \
-               and isinstance(self.y_encoder, (nn.Linear, nn.Sequential))
+            and isinstance(self.y_encoder, (nn.Linear, nn.Sequential))
 
         def set_encoder_weights(my_encoder, small_model_encoder):
             my_encoder_linear, small_encoder_linear = (my_encoder, small_model_encoder) \
@@ -175,8 +175,8 @@ class TransformerModel(nn.Module):
             small_in_proj_w = small_layer.self_attn.in_proj_weight
 
             my_in_proj_w.view(3, my_in_dim, my_in_dim)[:, :small_in_dim, :small_in_dim] = small_in_proj_w.view(3,
-                                                                                                               small_in_dim,
-                                                                                                               small_in_dim)
+                                                                                                            small_in_dim,
+                                                                                                            small_in_dim)
             my_layer.self_attn.in_proj_bias.view(3, my_in_dim)[:,
             :small_in_dim] = small_layer.self_attn.in_proj_bias.view(3, small_in_dim)
 
