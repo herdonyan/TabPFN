@@ -99,8 +99,8 @@ class TransformerModel(nn.Module):
 
     def forward(self, src, src_mask=None, single_eval_pos=None):
         assert isinstance(src, tuple), 'inputs (src) have to be given as (x,y) or (style,x,y) tuple'
-        single_eval_pos = 10
-        print(src, src_mask, single_eval_pos)
+        # single_eval_pos = 10
+        print(single_eval_pos==None)
         
         if len(src) == 2: # (x,y) and no style
             src = (None,) + src
