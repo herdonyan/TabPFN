@@ -126,7 +126,8 @@ def train(priordataloader_class, criterion, encoder_generator, emsize=200, nhid=
                 time_to_get_batch = time.time() - before_get_batch
                 before_forward = time.time()
                 if bptt_extra_samples is None:
-                    single_eval_pos = single_eval_pos_gen() if callable(single_eval_pos_gen) else single_eval_pos_gen
+                    # single_eval_pos = single_eval_pos_gen() if callable(single_eval_pos_gen) else single_eval_pos_gen
+                    single_eval_pos = None
                 else:
                     single_eval_pos = targets.shape[0] - bptt_extra_samples
 
