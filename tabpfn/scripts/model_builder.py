@@ -1,3 +1,6 @@
+import sys
+sys.path.append('././') # for vscode debug, up 1 level
+
 from functools import partial
 import tabpfn.encoders as encoders
 
